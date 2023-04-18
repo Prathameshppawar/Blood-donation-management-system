@@ -30,21 +30,38 @@ app.use(cookie());
 app.use(express.json());
 
 function temp(){
-    let email='qwerty'
+    let email='flkgjh'
+    let password='qwerty'
     db.query('Select email from donor where email = ?', [email], (error,results)=>{
-        if(error)
-            console.log(error)
+        if(error){
+            console.log('user not found')}
         else{
             if(results.length>0){
-                res.render('auth', {
+                console.log('auth', {
                     message:'Already existing user'
                 })
+            }
+            else if(results.length==0)
+            {
+                console.log("user doesn't exist")
+                db.query(
+                    'INSERT INTO donor (email, password ) VALUES (?, ?)',
+                    [ email, password ],
+                    (err, results) => {
+                      if (err) {
+                        console.log(err);
+                        res.status(500).json({ message: 'Server error' });
+                      } else {
+                        res.status(200).json({ message: 'User registered' });
+                      }
+                    }
+                 );
             }
         }
     })
 }
 
-temp();
+// temp();
 
 db.connect((err)=> {
     if(err){ 
@@ -81,31 +98,38 @@ app.post('/register', (req, res) => {
     const { email, password, usertype } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
     console.log(hashedPassword)
-    res.render('home')
-    // db.query('SELECT email FROM donor WHERE email = ?', [email],(error,results)=>{
-    //   if(error){
-    //       console.log(error);
-    //   } else{
-    //       if(results.length>0){
-    //           return res.render('auth',{
-    //               message: 'There is already an account associated with the email!!'
-    //           });
-    //       }
-    //   }
 
-    //   db.query(
-    //       'INSERT INTO donor (email, password) VALUES (?, ?)',
-    //       [email, password],
-    //       (err, results) => {
-    //         if (err) {
-    //           console.log(err);
-    //           res.status(500).json({ message: 'Server error' });
-    //         } else {
-    //           res.status(200).json({ message: 'User registered' });
-    //         }
-    //       }
-    //     );
-    // })
+    db.query('Select email from donor where email = ?', [email], (error,results)=>{
+        if(error){
+            console.log('user not found')}
+        else{
+            if(results.length>0){
+                console.log('auth', {
+                    message:'Already existing user'
+                })
+            }
+            else if(results.length==0)
+            {
+                console.log("user doesn't exist")
+                db.query(
+                    'INSERT INTO donor (email, password ) VALUES (?, ?)',
+                    [ email, password ],
+                    (err, results) => {
+                      if (err) {
+                        console.log(err);
+                        res.status(500).json({ message: 'Server error' });
+                      } else {
+                        res.status(200).json({ message: 'User registered' });
+                      }
+                    }
+                 );
+            }
+        }
+    })
+
+
+    res.render('home')
+    
     
 })
 
