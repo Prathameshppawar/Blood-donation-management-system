@@ -1,0 +1,152 @@
+.redblock
+{
+    position: absolute;
+    width: 1038px;
+    height: 604px;
+    left: 121px;
+    top: 0px;
+
+    background: #9E0D0D;
+    mix-blend-mode: normal;
+    border-radius: 0px 0px 63px 63px;
+}
+
+.login h1
+{
+    position: absolute;
+width: 291px;
+height: 57px;
+left: 218px;
+top: 68px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 48px;
+line-height: 55px;
+
+color: #FFFFFF;
+
+}
+.line
+{
+    position: absolute;
+    width: 696px;
+    height: 0px;
+    left: 206px;
+    top: 154.03px;
+    
+    border: 5px solid #FFFFFF;
+    border-radius: 60px;
+}
+.blooddrop
+{
+    position: absolute;
+width: 70px;
+height: 118px;
+left: 1008px;
+top: 37px;
+
+background: url(blood_drop.png);
+filter:brightness(2000%);
+/* box-shadow: inset -3px -3px 67px 1px rgba(0, 0, 0, 0.44); */
+}
+.email h4
+{
+    position: absolute;
+width: 294px;
+height: 32px;
+left: 220px;
+top: 163px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 22px;
+
+color: #FFFFFF;
+}
+.blank1 input
+{
+    position: absolute;
+width: 640px;
+height: 26px;
+left: 220px;
+top: 215px;
+
+background: #D9D9D9;
+border-radius: 42px;
+}
+
+.password h4{
+    position: absolute;
+width: 294px;
+height: 32px;
+left: 219px;
+top: 284px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 22px;
+
+color: #FFFFFF;
+}
+
+.blank2 input
+{
+    position: absolute;
+width: 640px;
+height: 26px;
+left: 218px;
+top: 336px;
+
+background: #D9D9D9;
+border-radius: 42px;
+}
+
+.select_user h4{
+    position: absolute;
+width: 294px;
+height: 32px;
+left: 221px;
+top: 404px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 22px;
+
+color: #FFFFFF;
+
+}
+
+.blank3 select{
+    position: absolute;
+width: 640px;
+height: 26px;
+left: 220px;
+top: 456px;
+
+background: #D9D9D9;
+border-radius: 42px;
+}
+
+.submit input{
+    position: absolute;
+width: 189px;
+height: 40px;
+left: 573px;
+top: 541px;
+
+background: #D9D9D9;
+border-radius: 6px;
+}
+.main
+{
+    position: absolute;
+    left: 120px;
+}
