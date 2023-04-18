@@ -44,7 +44,7 @@ app.use(express.json());
 //             else if(results.length==0)
 //             {
 //                 console.log("user doesn't exist")
-//                 db.query(
+//                 db.query( 
 //                     'INSERT INTO donor (email, password ) VALUES (?, ?)',
 //                     [ email, password ],
 //                     (err, results) => {
@@ -98,9 +98,9 @@ app.post('/register', (req, res) => {
     const { email, password, usertype } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
     console.log(hashedPassword)
-
+ 
     db.query('Select * from campuser where email = ?', [ email], (error,results)=>{
-        if(error){
+        if(error){ 
             console.log('user not found')
             console.log(error)
         }
@@ -109,9 +109,10 @@ app.post('/register', (req, res) => {
                 console.log('auth', {
                     message:'Already existing user'
                 })
+                res.redirect('campuseroptions')
             }
             else if(results.length==0)
-            {
+            { 
                 console.log("user doesn't exist")
                 if(usertype[0]=='c')
                 {
@@ -128,8 +129,8 @@ app.post('/register', (req, res) => {
                         }
                     );
  
-                    res.render('campuser')
-                }
+                    res.redirect('/campuseroptions')
+                } 
                 else if(usertype[0]=='b')
                 {
                     db.query(
@@ -165,18 +166,41 @@ app.post('/register', (req, res) => {
     })
 
 
-    if(usertype[0]=='c') 
-    {
-        res.render('campuser')
-    }
+    
     
     
 })
  
 
+
+
 app.get('/campuseroptions', (req, res)=>{
-    res.render('capuser');
+    res.render('campuser');
 })
+
+app.post('/campuseroptions', (req, res)=>{
+    console.log(req.body)
+    if(req.body.userregister){
+        res.redirect('donorregister')
+    }
+    else{
+        res.redirect('addbloodsample')
+    }
+
+})
+
+
+app.get('/addbloodsample', (req, res)=>{
+    console.log("in adding bloood sample")
+})
+
+app.get('/donorregister', (req,res)=>{
+    res.render('donorregister')
+})
+
+app.post('/donorregister', ((req,res)=>{
+
+}))
 
 app.get('/index', (req,res)=>{
     // const obj=null
