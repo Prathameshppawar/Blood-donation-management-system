@@ -29,37 +29,37 @@ app.set("views", "./views");
 app.use(cookie());
 app.use(express.json());
 
-function temp(){
-    let email='flkgjh'
-    let password='qwerty'
-    db.query('Select email from donor where email = ?', [email], (error,results)=>{
-        if(error){
-            console.log('user not found')}
-        else{
-            if(results.length>0){
-                console.log('auth', {
-                    message:'Already existing user'
-                })
-            }
-            else if(results.length==0)
-            {
-                console.log("user doesn't exist")
-                db.query(
-                    'INSERT INTO donor (email, password ) VALUES (?, ?)',
-                    [ email, password ],
-                    (err, results) => {
-                      if (err) {
-                        console.log(err);
-                        res.status(500).json({ message: 'Server error' });
-                      } else {
-                        res.status(200).json({ message: 'User registered' });
-                      }
-                    }
-                 );
-            }
-        }
-    })
-}
+// function temp(){
+//     let email='flkgjh'
+//     let password='qwerty'
+//     db.query('Select email from donor where email = ?', [email], (error,results)=>{
+//         if(error){
+//             console.log('user not found')}
+//         else{
+//             if(results.length>0){
+//                 console.log('auth', {
+//                     message:'Already existing user'
+//                 })
+//             }
+//             else if(results.length==0)
+//             {
+//                 console.log("user doesn't exist")
+//                 db.query(
+//                     'INSERT INTO donor (email, password ) VALUES (?, ?)',
+//                     [ email, password ],
+//                     (err, results) => {
+//                       if (err) {
+//                         console.log(err);
+//                         res.status(500).json({ message: 'Server error' });
+//                       } else {
+//                         res.status(200).json({ message: 'User registered' });
+//                       }
+//                     }
+//                  );
+//             }
+//         }
+//     })
+// }
 
 // temp();
 
@@ -99,9 +99,11 @@ app.post('/register', (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, 10);
     console.log(hashedPassword)
 
-    db.query('Select email from donor where email = ?', [email], (error,results)=>{
+    db.query('Select * from campuser where email = ?', [ email], (error,results)=>{
         if(error){
-            console.log('user not found')}
+            console.log('user not found')
+            console.log(error)
+        }
         else{
             if(results.length>0){
                 console.log('auth', {
@@ -111,26 +113,69 @@ app.post('/register', (req, res) => {
             else if(results.length==0)
             {
                 console.log("user doesn't exist")
-                db.query(
-                    'INSERT INTO donor (email, password ) VALUES (?, ?)',
-                    [ email, password ],
-                    (err, results) => {
-                      if (err) {
-                        console.log(err);
-                        res.status(500).json({ message: 'Server error' });
-                      } else {
-                        res.status(200).json({ message: 'User registered' });
-                      }
-                    }
-                 );
+                if(usertype[0]=='c')
+                {
+                    db.query(
+                        'INSERT INTO campuser (email, password ) VALUES (?, ?)',
+                        [ email, password ],
+                        (err, results) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).json({ message: 'Server error' });
+                        } else {
+                            res.status(200).json({ message: 'User registered' });
+                        }
+                        }
+                    );
+ 
+                    res.render('campuser')
+                }
+                else if(usertype[0]=='b')
+                {
+                    db.query(
+                        'INSERT INTO bloodbankuser (email, password ) VALUES (?, ?)',
+                        [ email, password ],
+                        (err, results) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).json({ message: 'Server error' });
+                        } else {
+                            res.status(200).json({ message: 'User registered' });
+                        }
+                        } 
+                    );
+                } 
+                else if(usertype[0]=='h')
+                {
+                    db.query(
+                        'INSERT INTO hospitaluser (email, password ) VALUES (?, ?)',
+                        [ email, password ],
+                        (err, results) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).json({ message: 'Server error' });
+                        } else {
+                            res.status(200).json({ message: 'User registered' });
+                        }
+                        }
+                    );
+                }
             }
         }
     })
 
 
-    res.render('home')
+    if(usertype[0]=='c') 
+    {
+        res.render('campuser')
+    }
     
     
+})
+ 
+
+app.get('/campuseroptions', (req, res)=>{
+    res.render('capuser');
 })
 
 app.get('/index', (req,res)=>{
@@ -141,4 +186,4 @@ app.get('/index', (req,res)=>{
 
 app.listen(PORT, ()=>{
     console.log("server started at port "+PORT)
-}); 
+});
