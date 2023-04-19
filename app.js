@@ -192,6 +192,7 @@ app.post('/campuseroptions', (req, res)=>{
 
 app.get('/addbloodsample', (req, res)=>{
     console.log("in adding bloood sample")
+    res.render('home')
 })
 
 app.get('/donorregister', (req,res)=>{
@@ -199,14 +200,67 @@ app.get('/donorregister', (req,res)=>{
 })
 
 app.post('/donorregister', ((req,res)=>{
+    console.log(req.body)
+    res.redirect('donorregister')
+    var donorid 
+    const {fname, lname, pincode, phonenum, occupation, address, gender, dob}= req.body
+    console.log(lname)
+    db.query('select count(donor_id) from donor ', (err, results)=>{
+        if(err){
+            console.log(error)
+            console.log('Error in counting  total donors')
+        }
+        else{
+            console.log(results.length+'donors existing')
+            const donors=results.length+1
+            donorid=donors
+            console.log(donorid+'donorid for new')
 
-}))
+            }
+        })
+
+        console.log('donor id here is '+ donorid)
+    db.query('Select donor_id from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (err, results)=>{
+        if(err)
+        {
+            console.log(error)
+            console.log('Error in finding for existing user')
+        }
+        else
+        { 
+            if(results.length>0)
+            {
+                console.log('already existing user')
+                
+                res.redirect('alreadyexistinguser')
+            } 
+            else{ 
+                db.query(
+                    'INSERT INTO donor (F_name, L_name, Pincode, Address, Occupation, DOB, Gender, phonenum ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                    [ fname, lname, pincode, address, occupation, dob, gender, phonenum ],
+                    (err, results) => { 
+                    if (err) { 
+                        console.log(err);
+                        res.status(500).json({ message: 'Server error' }); 
+                    } else { 
+                        res.status(200).json({ message: 'User registered' });
+                    }
+                    }  
+                );
+            }
+        }
+    })
+})) 
+ 
 
 app.get('/index', (req,res)=>{
     // const obj=null
     res.render('index')
 })
 
+app.get('/alreadyexistinguser', (req, res)=>{
+    
+})
 
 app.listen(PORT, ()=>{
     console.log("server started at port "+PORT)

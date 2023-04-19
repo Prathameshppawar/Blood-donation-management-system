@@ -24,7 +24,7 @@ height: 116px;
 left: 1382px;
 top: 15px;
 
-background: url(blood\ drop.png);
+background: url(blood_drop.png);
 }
 
 .redblock
@@ -164,7 +164,8 @@ line-height: 34px;
 
 color: #FFFFFF;
 }
-#blank5
+
+#occ
 {
     position: absolute;
     width: 640px;

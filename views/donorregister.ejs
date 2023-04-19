@@ -11,28 +11,36 @@
     <p class="donorreg">DONOR REGISTERATION</p>
     <img src="blood_drop.png" alt="" class="blooddrop">
     <div class="redblock"></div>
-    <p class="fname">FIRST NAME :</p>
-    <input type="text" name="fname" id="blank1" value required>
-    <p class="lname">LAST NAME :</p>
-    <input type="text" name="lnanme" id="blank2" value required>
-    <p class="pincode">PINCODE :</p>
-    <input type="text" name="pincode" id="blank3" value>
-    <p class="phonenum">PHONE NUMBER :</p>
-    <input type="text" name="phonenum" id="blank4" value>
-    <p class="occupation">OCCUPATION :</p>
-    <input type="text" name="occupation" id="blank5" value>
-    <p class="address">ADDRESS :</p>
-    <input type="text" name="address" id="blank6" value>
-    <p class="gender">GENDER :</p>
-    <div class="blank7">
-        <select name="gender" id="gen">
-            <option value="M">Male</option>
-            <option value="F">Female</option>
-            <option value="O">Other</option>
-        </select>
-    </div>
-    <p class="dob">DATE OF BIRTH :</p>
-    <input type="date" name="dob" id="blank8" value>
-    <input type="submit" value="SUBMIT" id="submit">
+    <form action="" method="post">
+        <p class="fname">FIRST NAME :</p>
+            <input type="text" name="fname" id="blank1" value required>
+        <p class="lname">LAST NAME :</p>
+            <input type="text" name="lname" id="blank2" value required>
+        <p class="pincode">PINCODE :</p>
+            <input type="text" name="pincode" id="blank3" value>
+        <p class="phonenum">PHONE NUMBER :</p>
+            <input type="text" name="phonenum" id="blank4" value>
+            <p class="occupation">OCCUPATION :</p>
+            <div class="blank5">
+                <select name="occupation" id="occ">
+                    <option value="Goverment service">Government service</option>
+                    <option value="Business">Business</option>
+                    <option value="job">job</option>
+                </select>
+            </div>        
+        <p class="address">ADDRESS :</p>
+            <input type="text" name="address" id="blank6" value>
+        <p class="gender">GENDER :</p>
+        <div class="blank7">
+            <select name="gender" id="gen">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+            </select>
+        </div>
+        <p class="dob">DATE OF BIRTH :</p>
+            <input type="date" name="dob" id="blank8" value>
+            <input type="submit" value="SUBMIT" id="submit">
+    </form> 
 </body>
 </html>
