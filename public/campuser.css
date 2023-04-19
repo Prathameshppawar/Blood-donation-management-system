@@ -126,3 +126,7 @@ border-radius: 81px;
     left: 500px;
     z-index: -1;
 }
+
+a{
+    text-decoration: none;
+}

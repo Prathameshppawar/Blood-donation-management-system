@@ -1,0 +1,77 @@
+.redblock
+{
+    position: absolute;
+width: 1535px;
+height: 644px;
+left: 0px;
+top: 146px;
+
+background: #9E0D0D;
+mix-blend-mode: normal;
+}
+.BDMS
+{
+    position: absolute;
+width: 734px;
+height: 145px;
+left: 50px;
+top: -35px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 52px;
+line-height: 59px;
+
+color: #000000;
+}
+.alreadyreg
+{
+    position: absolute;
+width: 887px;
+height: 82px;
+left: 290px;
+top: 354px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 34px;
+text-align: center;
+
+color: #FFFFFF;
+}
+
+#submit
+{
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 17px;
+line-height: 19px;
+text-align: center;
+
+color: #000000;
+
+position: absolute;
+width: 193px;
+height: 42px;
+left: 637px;
+top: 450px;
+
+background: #D9D9D9;
+border-radius: 81px;
+}
+
+.blooddrop
+{
+    position: absolute;
+width: 68px;
+height: 116px;
+left: 1382px;
+top: 15px;
+
+background: url(blood\ drop.png);
+}

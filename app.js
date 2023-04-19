@@ -187,7 +187,7 @@ app.post('/register', (req, res) => {
                     })
                     res.redirect('hospitaluseroptions')
                 }
-                else if(results.length==0)
+                else if(results.length==0) 
                 { 
                     console.log("user doesn't exist")
                 
@@ -223,22 +223,18 @@ app.get('/campuseroptions', (req, res)=>{
     res.render('campuser');
 })
 
-app.post('/campuseroptions', (req, res)=>{
-    console.log(req.body)
-    if(req.body.userregister){
-        res.redirect('donorregister')
-    }
-    else{
-        res.redirect('addbloodsample')
-    }
+// app.post('/campuseroptions', (req, res)=>{
+//     console.log(req.body)
+//     if(req.body.userregister){
+//         res.redirect('donorregister')
+//     }
+//     else{
+//         res.redirect('addbloodsample')
+//     }
 
-})
+// })
 
 
-app.get('/addbloodsample', (req, res)=>{
-    console.log("in adding bloood sample")
-    res.render('home')
-})
 
 app.get('/donorregister', (req,res)=>{
     res.render('donorregister')
@@ -246,19 +242,41 @@ app.get('/donorregister', (req,res)=>{
 
 app.post('/donorregister', ((req,res)=>{
     console.log(req.body)
-    res.redirect('donorregister')
-    
+    res.redirect('donorregister') 
+     
     const {fname, lname, pincode, phonenum, occupation, address, gender, dob}= req.body
     console.log(lname)
     
-    let temp='e'
+    // let temp=0
 
-    
-    
+    // if(fname)
+    // {
+    //     db.query('Select * from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (error, results)=>{
+    //         if(error)
+    //         {
+    //             console.log(error)
+    //             console.log('Errror in finding existing user')
+
+    //         }
+    //         else
+    //         {
+    //             if(results.length>0)
+    //             {
+    //                 console.log('auth', {
+    //                     message: 'Already existing user'
+    //                 })
+ 
+    //                 temp=2
+    //                 return res.render('donorregister', temp)
+    //             }
+                
+    //         }
+    //     })
+    // }
+
     db.query('Select * from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (error, results)=>{
         if(error)
         {
-            temp,p='e'
             console.log(error)
             console.log('Error in finding for existing user')
         }
@@ -270,38 +288,54 @@ app.post('/donorregister', ((req,res)=>{
                     message:'Already existing user'
                 })
                 res.redirect('alreadyexistinguser')
-            } 
+            }
+
             else if(results.length==0){  
-                console.log('new')
-                db.query(
-                    'INSERT INTO donor (F_name, L_name, Pincode, Address, Occupation, DOB, Gender, phonenum ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                    [ fname, lname, pincode, address, occupation, dob, gender, phonenum ],
-                    (err, results) => { 
-                    if (err) { 
-                        console.log(err);
-                        res.status(500).json({ message: 'Server error' }); 
-                    } else { 
-                        res.status(200).json({ message: 'User registered' });
-                    }
-                    }   
-                ); 
-                if(1){
-                    res.redirect('campuseroptions')
-                }
+                console.log('new user')
+                
+                if(fname){
+                    res.render('campuser')
+                    db.query(
+                        'INSERT INTO donor (F_name, L_name, Pincode, Address, Occupation, DOB, Gender, phonenum ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                        [ fname, lname, pincode, address, occupation, dob, gender, phonenum ],
+                        (err, results) => { 
+                        if (err) { 
+                            console.log(err);
+                            res.status(500).json({ message: 'Server error' }); 
+                        } else { 
+                            res.status(200).json({ message: 'User registered' });
+                        }
+                        }
+                    )
+                    
+                }  
+            
+                
+                
             } 
         }
     })
 
-    console.log(temp)
+    // console.log(temp)
 })) 
  
  
+app.get('/addbloodsample', (req, res)=>{
+    console.log("in adding bloood sample")
+    res.render('addbloodsample')
+})
+
+
 app.get('/index', (req,res)=>{
     // const obj=null
     res.render('index')
 })
 
 app.get('/alreadyexistinguser', (req, res)=>{
+    res.render('alreadyregistered')
+})
+
+app.post('/alreadyexistinguser', (req, res)=>{
     res.render('home')
 })
 

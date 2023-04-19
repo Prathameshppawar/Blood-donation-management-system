@@ -1,0 +1,346 @@
+.addblood
+{
+    position: absolute;
+width: 921px;
+height: 80px;
+left: 65px;
+top: 0px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 59px;
+line-height: 45px;
+
+color: #000000;
+}
+.blooddrop
+{
+    position: absolute;
+width: 68px;
+height: 116px;
+left: 1382px;
+top: 15px;
+
+background: url(blood\ drop.png);
+}
+
+.phone
+{
+    box-sizing: border-box;
+    display:flex;
+    position: absolute;
+    margin-top: -60px;
+    margin-left: 8px;
+}
+.phonenum
+{
+    position: absolute;
+width: 331px;
+height: 38px;
+left: 67px;
+top: 325px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 34px;
+
+
+color: #FFFFFF;
+}
+#blank7
+{
+    position: absolute;
+width: 195px;
+height: 29px;
+left: 470px;
+top: 358px;
+text-align: center;
+background: #D9D9D9;
+}
+.adjust
+{
+    box-sizing: border-box;
+    display:flex;
+    position: absolute;
+    margin-top: 130px;
+    margin-left: -70px;
+}
+.redblock
+{
+    position: absolute;
+width: 1535px;
+height: 644px;
+left: 0px;
+top: 146px;
+
+background: #9E0D0D;
+mix-blend-mode: normal;
+}
+.fname
+{
+    position: absolute;
+width: 331px;
+height: 41px;
+left: 65px;
+top: 166px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 34px;
+
+color: #FFFFFF;
+}
+
+#blank5
+{
+    position: absolute;
+width: 640px;
+height: 26px;
+left: 65px;
+top: 239px;
+
+background: #D9D9D9;
+border-radius: 42px;
+}
+
+.lname
+{
+    position: absolute;
+width: 331px;
+height: 41px;
+left: 798px;
+top: 166px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 34px;
+
+color: #FFFFFF;
+}
+
+#blank6
+{
+    position: absolute;
+width: 640px;
+height: 26px;
+left: 798px;
+top: 239px;
+
+background: #D9D9D9;
+border-radius: 42px;
+}
+.bloodtype
+{
+    position: absolute;
+width: 331px;
+height: 41px;
+left: 145px;
+top: 210px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 34px;
+
+color: #FFFFFF;
+}
+#bt
+{
+    position: absolute;
+width: 200px;
+height: 29px;
+left: 550px;
+top: 242px;
+text-align: center;
+background: #D9D9D9;
+}
+.rhfactor
+{
+position: absolute;
+width: 331px;
+height: 41px;
+left: 865px;
+top: 210px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 34px;
+
+color: #FFFFFF;
+}
+
+#rh
+{
+    position: absolute;
+width: 200px;
+height: 29px;
+left: 1100px;
+top: 242px;
+text-align: center;
+background: #D9D9D9;
+}
+.weight
+{
+    position: absolute;
+    width: 502px;
+    height: 41px;
+    left: 145px;
+    top: 290px;
+    
+    font-family: 'Graduate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 34px;
+    color: #FFFFFF; 
+}
+
+#blank1
+{
+    position: absolute;
+width: 194px;
+height: 29px;
+left: 550px;
+top: 320px;
+
+background: #D9D9D9;
+}
+
+.kg
+{
+    position: absolute;
+    left: 725px;
+    top: 313px;
+}
+
+.bloodpercent
+{
+    position: absolute;
+    width: 502px;
+    height: 41px;
+    left: 865px;
+    top: 290px;
+    
+    font-family: 'Graduate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 34px;
+    color: #FFFFFF; 
+}
+
+#blank2
+{
+    position: absolute;
+width: 194px;
+height: 29px;
+left: 1100px;
+top: 320px;
+
+background: #D9D9D9;
+}
+
+.percent
+{
+    position: absolute;
+    left: 1275px;
+    top: 313px;
+}
+
+.hb
+{
+    position: absolute;
+    width: 502px;
+    height: 41px;
+    left: 145px;
+    top: 370px;
+    
+    font-family: 'Graduate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 34px;
+    color: #FFFFFF;
+}
+
+#blank3
+{
+    position: absolute;
+width: 194px;
+height: 29px;
+left: 550px;
+top: 400px;
+
+background: #D9D9D9;
+}
+
+.gmdl
+{
+    position: absolute;
+    left: 705px;
+    top: 393px;   
+}
+
+.volume
+{
+    position: absolute;
+    width: 502px;
+    height: 41px;
+    left: 865px;
+    top: 370px;
+    
+    font-family: 'Graduate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 34px;
+    color: #FFFFFF; 
+}
+
+#blank4
+{
+    position: absolute;
+width: 194px;
+height: 29px;
+left: 1100px;
+top: 400px;
+
+background: #D9D9D9;
+}
+
+.mL
+{
+    position: absolute;
+    left: 1275px;
+    top: 393px;
+}
+
+#submit
+{
+    position: absolute;
+    width: 239px;
+    height: 55px;
+    left: 640px;
+    top: 675px;
+    
+    background: #D9D9D9;
+    border-radius: 103px;
+    font-family: 'Graduate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 34px;
+    text-align: center;
+    
+    color: #9E0D0D;
+}
