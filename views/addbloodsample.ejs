@@ -12,45 +12,47 @@
     <p class="addblood">ADD BLOOD SAMPLE</p>
     <img src="blood_drop.png" alt="" class="blooddrop">
     <div class="redblock"></div>
-    <p class="fname">Donor's First Name :</p>
-    <input type="text" name="fname" id="blank5">
-    <p class="lname">Donor's Last Name :</p>
-    <input type="text" name="lnanme" id="blank6">
-    <div class="phone">
-    <p class="phonenum">Phone Number :</p>
-    <input type="text" name="phonenum" id="blank7">
-    </div>
-    <div class="adjust">
-    <p class="bloodtype">Bloodtype :</p>
-    <div>
-        <select name="bloodtype" id="bt">
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="AB">AB</option>
-            <option value="O">O</option>
-        </select>
-    </div>
-    <p class="rhfactor">Rh Factor :</p>
-    <div>
-        <select name="bloodtype" id="rh">
-            <option value="+">+</option>
-            <option value="-">-</option>
-        </select>
-    </div>
-    <p class="weight">Weight Of The Person :</p>
-    <input id  = "blank1" type = "text"></input>
-    <p class = "kg">kg</p>
-    <p class="bloodpercent">Blood % :</p>
-    <input id  = "blank2" type = "text"></input>
-    <p class = "percent">%</p>
-    <p class="hb">Haemoglobin Level :</p>
-    <input id  = "blank3" type = "text"></input>
-    <p class = "gmdl">gm/dL</p>
-    <p class="volume">Volume:</p>
-    <input id  = "blank4" type = "text"></input>
-    <p class = "mL">mL</p>
-    </div>
-    <input type="submit" value="SUBMIT" id="submit">
-    
+
+    <form action="" method="post">
+        <p class="fname">Donor's First Name :</p>
+        <input type="text" name="fname" id="blank5" value>
+        <p class="lname">Donor's Last Name :</p>
+        <input type="text" name="lnanme" id="blank6" value="">
+        <div class="phone">
+        <p class="phonenum">Phone Number :</p>
+        <input type="text" name="phonenum" id="blank7" value>
+        </div>
+        <div class="adjust">
+        <p class="bloodtype">Bloodtype :</p>
+        <div>
+            <select name="bloodtype" id="bt">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+            </select>
+        </div>
+        <p class="rhfactor">Rh Factor :</p>
+        <div>
+            <select name="rhfactor" id="rh">
+                <option value="+">+</option>
+                <option value="-">-</option>
+            </select>
+        </div>
+        <p class="weight">Weight Of The Person :</p>
+        <input id  = "blank1" type = "text" name="weight" value></input>
+        <p class = "kg">kg</p>
+        <p class="bloodpercent">Blood % :</p>
+        <input id  = "blank2" type = "text" name="bloodpercent" value></input>
+        <p class = "percent">%</p>
+        <p class="hb">Haemoglobin Level :</p>
+        <input id  = "blank3" type = "text" name="hb" value></input>
+        <p class = "gmdl">gm/dL</p>
+        <p class="volume">Volume:</p>
+        <input id  = "blank4" type = "text" name="volume" value></input>
+        <p class = "mL">mL</p>
+        </div>
+        <input type="submit" value="SUBMIT" id="submit">
+    </form>
 </body>
 </html>

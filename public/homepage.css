@@ -1,0 +1,465 @@
+*
+{
+    margin: 0;
+}
+.redblock
+{
+position: relative;
+width: 1520px;
+height: 145px;
+margin-top: 40px;
+
+background: #9E0D0D;
+mix-blend-mode: normal;
+}
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+.slideshow-container {
+
+    display: flex;
+  height:400px;
+  position: absolute;
+  margin: auto;
+  top: 200px;
+  left: 400px;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* .dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  position: absolute;
+  top: 540px;
+  left: 800px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+} */
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+.blackblock
+{
+    position: absolute;
+width: 163px;
+height: 2122px;
+left: 30px;
+top: 0px;
+
+background: #4E4B4B;
+mix-blend-mode: normal;
+box-shadow: 0px 4px 66px 24px rgba(0, 0, 0, 0.37);
+}
+
+.blooddrop
+{
+    position: absolute;
+width: 70px;
+height: 118px;
+left: 76px;
+top: 53px;
+
+background: url(blood\ drop.png);
+/* box-shadow: inset -3px -3px 67px 1px rgba(0, 0, 0, 0.44); */
+}
+
+.oval1
+{
+    position: absolute;
+width: 110px;
+height: 145px;
+left: 1137px;
+top: 80px;
+
+background: #9E0D0D;
+mix-blend-mode: normal;
+border-radius: 63px;
+}
+
+.oval2
+{
+    position: absolute;
+width: 110px;
+height: 145px;
+left: 1257px;
+top: 80px;
+
+background: #9E0D0D;
+mix-blend-mode: normal;
+border-radius: 63px;
+}
+
+.oval3
+{
+    position: absolute;
+width: 110px;
+height: 145px;
+left: 1377px;
+top: 77px;
+
+background: #9E0D0D;
+mix-blend-mode: normal;
+border-radius: 63px;
+}
+
+.donate{
+    position: absolute;
+width: 158px;
+height: 57px;
+left: 1163px;
+top: 192px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 17px;
+
+color: #FFFFFF;
+}
+
+.aboutus
+{
+    position: absolute;
+width: 158px;
+height: 57px;
+left: 1274px;
+top: 192px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 17px;
+
+color: #FFFFFF;
+}
+
+.login
+{
+    position: absolute;
+width: 158px;
+height: 57px;
+left: 1408px;
+top: 192px;
+text-decoration: none;
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 17px;
+
+color: #FFFFFF;
+
+}
+
+.BDMS
+{
+    position: absolute;
+width: 734px;
+height: 145px;
+left: 240px;
+top: 53px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 52px;
+line-height: 59px;
+
+color: #FFFFFF;
+}
+
+.whiteblock1
+{
+    position: absolute;
+width: 519px;
+height: 251px;
+left: 271px;
+top: 561px;
+
+background: #D9D9D9;
+}
+.whiteblock2
+{
+    position: absolute;
+width: 562px;
+height: 251px;
+left: 849px;
+top: 561px;
+
+background: #D9D9D9;
+}
+
+.donatedblood
+{
+    position: absolute;
+width: 427px;
+height: 141px;
+left: 310px;
+top: 591px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 40px;
+line-height: 46px;
+
+color: #000000;
+}
+
+.registeredusers
+{
+    position: absolute;
+    width: 539px;
+    height: 141px;
+    left: 872px;
+    top: 587px;
+    
+    font-family: 'Graduate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 46px;
+    
+    color: #000000;
+}
+
+.redblock1
+{
+    position: absolute;
+width: 1171px;
+height: 60px;
+left: 240px;
+top: 893px;
+
+background: #9E0D0D;
+mix-blend-mode: normal; 
+}
+.donationtable
+{
+    position: absolute;
+width: 799px;
+height: 65px;
+left: 263px;
+top: 909px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 23px;
+line-height: 26px;
+
+color: #FFFFFF;
+}
+
+.donationcompatibility
+{
+    position: absolute;
+    width: 1167px;
+    height: 469px;
+    left: 241px;
+    top: 959px;
+}
+
+.donationcompatibility th
+{
+    height: 70px;
+}
+
+td
+{
+    text-align: center;
+}
+
+th,td
+{
+    border-bottom: 1px solid #ddd;
+}
+.redblock2
+{
+    position: absolute;
+width: 1170px;
+height: 60px;
+left: 241px;
+top: 1541px;
+
+background: #9E0D0D;
+mix-blend-mode: normal;
+}
+
+.text1
+{
+    position: absolute;
+width: 807px;
+height: 47px;
+left: 42px;
+top: 1554px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 35px;
+line-height: 40px;
+text-align: center;
+
+color: #FFFFFF;
+}
+
+.yellowblock
+{
+    position: absolute;
+width: 1167px;
+height: 335px;
+left: 241px;
+top: 1623px;
+
+background: #78673A;
+mix-blend-mode: normal;
+border-radius: 15px;
+}
+.text2
+{
+    position: absolute;
+    width: 1167px;
+    height: 65px;
+    left: 241px;
+    top: 1646px;
+    
+    font-family: 'Graduate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 26px;
+    text-align: center;
+    
+    color: #FFFFFF;
+
+}
+
+.text3
+{
+    position: absolute;
+width: 1167px;
+height: 99px;
+left: 251px;
+top: 1750px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 26px;
+text-align: center;
+
+color: #FFFFFF;
+
+}
+.text4
+{
+    position: absolute;
+width: 1167px;
+height: 75px;
+left: 251px;
+top: 1856px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 26px;
+text-align: center;
+
+color: #FFFFFF;
+}
+
+.text5
+{
+    position: absolute;
+width: 409px;
+height: 39px;
+left: 215px;
+top: 2091px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 17px;
+
+color: #000000;
+}
+.greyblock
+{
+    position: absolute;
+width: 1327px;
+height: 46px;
+left: 193px;
+top: 2076px;
+
+background: #D9D9D9;
+}
+

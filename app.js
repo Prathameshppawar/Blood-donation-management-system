@@ -14,6 +14,8 @@ var path= require("path")
 
 const bodyParser= require('body-parser')
 
+// import React, {useState} from 'react' 
+
 const app = express();
 
 // app.use("/js", express.static(__dirname+"./public/js"));
@@ -74,7 +76,7 @@ db.connect((err)=> {
 })
  
 app.get('/', (req,res)=>{
-    res.render('home')
+    res.render('homepage')
 })
 
 app.get('/login', (req, res) =>{
@@ -87,6 +89,8 @@ app.post('/login', (req,res)=>{
     console.log(obj)
     res.render('index2', {email:email, password:password, option:usertype})
 })
+
+
 
 app.get('/register', (req, res)=>{
     res.render('userlogin')
@@ -111,33 +115,33 @@ app.post('/register', (req, res) => {
                     console.log('auth', {
                         message:'Already existing user'
                     })
-                    res.redirect('campuseroptions')
+                    return res.redirect('campuseroptions')
                 }
                 else if(results.length==0)
                 { 
                     console.log("user doesn't exist")
                 
-                    db.query(
+                    db.query( 
                         'INSERT INTO campuser (email, password ) VALUES (?, ?)',
                         [ email, password ],
                         (err, results) => {
                         if (err) {
                             console.log(err);
-                            res.status(500).json({ message: 'Server error' });
+                          
                         } else {
-                            res.status(200).json({ message: 'User registered' });
+                            return res.redirect('/campuseroptions')
                         }
                         }
                     ); 
     
-                    res.redirect('/campuseroptions')
+                   
                 } 
                 
             }
         })
     }
 
-    if(usertype[0]=='b'){
+    else if(usertype[0]=='b'){
         db.query('Select * from bloodbankuser where email = ? and password= ?', [ email, password], (error,results)=>{
             if(error){ 
                 console.log('user not found')
@@ -148,7 +152,7 @@ app.post('/register', (req, res) => {
                     console.log('auth', {
                         message:'Already existing user'
                     })
-                    res.redirect('bloodbankuseroptions')
+                   return res.redirect('bloodbankuseroptions')
                 }
                 else if(results.length==0)
                 { 
@@ -160,21 +164,21 @@ app.post('/register', (req, res) => {
                         (err, results) => {
                         if (err) {
                             console.log(err);
-                            res.status(500).json({ message: 'Server error' });
+                           
                         } else {
-                            res.status(200).json({ message: 'User registered' });
+                            return res.redirect('bloodbankuseroptions')
                         }
                         }
                     ); 
     
-                    res.redirect('bloodbankuseroptions')
+                   
                 } 
                 
             }
         })
     }
 
-    if(usertype[0]=='h'){
+    else if(usertype[0]=='h'){
         db.query('Select * from hospitaluser where email = ? and password= ?', [ email, password], (error,results)=>{
             if(error){ 
                 console.log('user not found')
@@ -185,7 +189,7 @@ app.post('/register', (req, res) => {
                     console.log('auth', {
                         message:'Already existing user'
                     })
-                    res.redirect('hospitaluseroptions')
+                    return res.redirect('hospitaluseroptions')
                 }
                 else if(results.length==0) 
                 { 
@@ -197,14 +201,14 @@ app.post('/register', (req, res) => {
                         (err, results) => {
                         if (err) {
                             console.log(err);
-                            res.status(500).json({ message: 'Server error' });
+                            
                         } else {
-                            res.status(200).json({ message: 'User registered' });
+                            return res.redirect('hospitaluseroptions')
                         }
                         }
                     ); 
     
-                    res.redirect('hospitaluseroptions')
+                   
                 } 
                 
             }
@@ -247,6 +251,7 @@ app.post('/donorregister', ((req,res)=>{
     const {fname, lname, pincode, phonenum, occupation, address, gender, dob}= req.body
     console.log(lname)
     
+    // const [type, setType]= useState('Already existing user')
     // let temp=0
 
     // if(fname)
@@ -274,6 +279,10 @@ app.post('/donorregister', ((req,res)=>{
     //     })
     // }
 
+
+    let msg={
+        message: 'User already regsitered' 
+    }
     db.query('Select * from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (error, results)=>{
         if(error)
         {
@@ -284,39 +293,38 @@ app.post('/donorregister', ((req,res)=>{
         { 
             if(results.length>0)
             {
-                console.log('auth', {
+                console.log( {
                     message:'Already existing user'
                 })
-                res.redirect('alreadyexistinguser')
+                return res.redirect('alreadyexistinguser')
+                // setType('Already existing user')
             }
 
-            else if(results.length==0){  
-                console.log('new user')
+            else if(results.length==0){   
+                // setType('Already existing user')
+                console.log('new user') 
+                temp.push(1)
+                console.log(temp.length+' for new user')   
+                    // res.render('campuser') 
+                db.query( 
+                    'INSERT INTO donor (F_name, L_name, Pincode, Address, Occupation, DOB, Gender, phonenum ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                    [ fname, lname, pincode, address, occupation, dob, gender, phonenum ],
+                    (err, results) => { 
+                    if (err) { 
+                        console.log(err);
+                         
+                    } else { 
+                        console.log('user registered')
+                    }
+                    }
+                ) 
+                 
                 
-                if(fname){
-                    res.render('campuser')
-                    db.query(
-                        'INSERT INTO donor (F_name, L_name, Pincode, Address, Occupation, DOB, Gender, phonenum ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                        [ fname, lname, pincode, address, occupation, dob, gender, phonenum ],
-                        (err, results) => { 
-                        if (err) { 
-                            console.log(err);
-                            res.status(500).json({ message: 'Server error' }); 
-                        } else { 
-                            res.status(200).json({ message: 'User registered' });
-                        }
-                        }
-                    )
-                    
-                }  
-            
-                
-                
-            } 
+            }
         }
     })
 
-    // console.log(temp)
+    // console.log(type)
 })) 
  
  
@@ -325,6 +333,38 @@ app.get('/addbloodsample', (req, res)=>{
     res.render('addbloodsample')
 })
 
+app.post('/addbloodsample', (req, res)=>{
+    const {fname, lname, phonenum, bloodtype, rhfactor, weight, hb, bloodpercent, volume}=req.body
+    console.log(req.body)
+    
+    let temp=5
+    db.query('Select donor_id from donor where F_name= ? and L_name= ? and phonenum=?', [fname, lname, phonenum], (err, result)=>{
+        if(err){
+            throw err;
+        }
+        else
+        {
+            console.log(result.l)
+            temp=result
+        }
+    })
+    db.query( 
+        'INSERT INTO blood (blood_type, Rh_factor, Weight, Hb, Blood_percentage, Volume, donor_id) VALUES (?, ?, ?, ?, ?, ?)',
+        [ bloodtype, rhfactor, weight, hb, bloodpercent, volume, temp ],
+        (err, results) => {
+        if (err) {
+            console.log(err);
+            console.log(result.donor_id)
+            res.status(500).json({ message: 'Server error in insertion' });
+        } else {
+            res.status(200).json({ message: 'User registered' });
+            
+        }
+        }
+    );
+
+     
+})
 
 app.get('/index', (req,res)=>{
     // const obj=null
