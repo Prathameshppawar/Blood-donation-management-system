@@ -232,6 +232,23 @@ line-height: 59px;
 
 color: #FFFFFF;
 }
+.registeredusers
+{
+    position: absolute;
+    width: 539px;
+    height: 141px;
+    left: 872px;
+    top: 587px;
+    
+    font-family: 'Graduate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 46px;
+    
+    color: #000000;
+
+}
 
 .whiteblock1
 {
@@ -243,7 +260,7 @@ top: 561px;
 
 background: #D9D9D9;
 }
-.whiteblock2
+.shit
 {
     position: absolute;
 width: 562px;
@@ -252,6 +269,8 @@ left: 849px;
 top: 561px;
 
 background: #D9D9D9;
+z-index: -1;
+
 }
 
 .donatedblood
@@ -271,22 +290,7 @@ line-height: 46px;
 color: #000000;
 }
 
-.registeredusers
-{
-    position: absolute;
-    width: 539px;
-    height: 141px;
-    left: 872px;
-    top: 587px;
-    
-    font-family: 'Graduate';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 46px;
-    
-    color: #000000;
-}
+
 
 .redblock1
 {

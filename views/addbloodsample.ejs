@@ -17,7 +17,7 @@
         <p class="fname">Donor's First Name :</p>
         <input type="text" name="fname" id="blank5" value>
         <p class="lname">Donor's Last Name :</p>
-        <input type="text" name="lnanme" id="blank6" value="">
+        <input type="text" name="lname" id="blank6" value>
         <div class="phone">
         <p class="phonenum">Phone Number :</p>
         <input type="text" name="phonenum" id="blank7" value>
@@ -54,5 +54,19 @@
         </div>
         <input type="submit" value="SUBMIT" id="submit">
     </form>
+
+    <div id="conditional">
+        <% if(message) {  %>
+            <p > <%= message %></p>
+        <% } %>
+        <!-- <% let temp= message  %> -->
+    </div> 
+    <script>
+            
+        // alert(temp);
+        setTimeout(function() {
+        document.getElementById('conditional').style.display = 'none';
+        }, 2500); 
+    </script>
 </body>
 </html>

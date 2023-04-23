@@ -1,0 +1,99 @@
+.pendingreq
+{
+    position: absolute;
+width: 921px;
+height: 80px;
+left: 65px;
+top: 0px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 59px;
+line-height: 45px;
+
+color: #000000;
+}
+.blooddrop
+{
+    position: absolute;
+width: 68px;
+height: 116px;
+left: 1382px;
+top: 15px;
+
+background: url(blood\ drop.png);
+}
+.redblock
+{
+    position: absolute;
+width: 1535px;
+height: 644px;
+left: 0px;
+top: 146px;
+
+background: #9E0D0D;
+mix-blend-mode: normal;
+}
+.requests
+{
+    position: absolute;
+width: 331px;
+height: 41px;
+left: 105px;
+top: 150px;
+
+font-family: 'Graduate';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 34px;
+
+color: #FFFFFF;
+}
+
+.submit
+{
+    height: 20px;;
+    width: 20px;
+    background : url(checked.png);
+    background-size: contain;
+    border: none;
+    margin-top: 8px;
+    
+}
+
+.requesttable
+{
+    position: absolute;
+    width: 1300px;
+    height: auto;
+    left: 105px;
+    top: 250px;
+    background-color: #ddd;
+    border-radius: 10px;
+    font-family: 'Graduate';
+
+}
+
+/* .requesttable th
+{
+    height: 70px;
+} */
+
+th
+{
+    color: #9E0D0D;
+    font-size: 20px;
+}
+
+td
+{
+    line-height: 30px;
+    text-align: center;
+}
+
+tr
+{
+    border-bottom: 10px solid #9E0D0D;
+}

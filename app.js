@@ -83,8 +83,42 @@ app.get('/', (req,res)=>{
 //     res.render('userlogin')
 // })
 
+
+var temp1, temp2
+
 app.get('/home', (req,res)=>{
-    res.render('homepage')
+    
+    db.query('Select * from donor', (err, res)=>{
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log(res.length)
+            temp1=res.length
+            db.query('Select * from blood', (error, results)=>{
+                if(error)
+                {
+                    console.log(error)
+                }
+                else
+                {
+                    console.log(results.length)
+                    temp2=results.length
+                     
+                }
+            })
+        }
+    })
+
+
+    res.render('homepage', {
+        donor: temp1,
+        samples: temp2
+    })
+
+     
 })
 
 // app.post('/login', (req,res)=>{
@@ -106,7 +140,7 @@ app.post('/login', (req, res) => {
 
     // console.log(req.body);
     const { email, password, usertype } = req.body;
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    // const hashedPassword = bcrypt.hashSync(password, 10);
     // console.log(hashedPassword)
     
 
@@ -286,6 +320,7 @@ app.get('/donorregister', (req,res)=>{
 
 app.post('/donorregister', ((req,res)=>{
     console.log(req.body)
+    console.log(req.query.campid)
     // res.redirect('donorregister') 
      
     const {fname, lname, pincode, phonenum, occupation, address, gender, dob}= req.body
@@ -300,7 +335,7 @@ app.post('/donorregister', ((req,res)=>{
             console.log('Error in finding for existing user')
         }
         else
-        { 
+        {
             if(results.length>0)
             {
                 console.log( {
@@ -340,40 +375,61 @@ app.post('/donorregister', ((req,res)=>{
  
 app.get('/addbloodsample', (req, res)=>{
     console.log("in adding bloood sample")
-    res.render('addbloodsample')
+    res.render('addbloodsample', {
+        message: null
+    })
 })
 
 app.post('/addbloodsample', (req, res)=>{
     const {fname, lname, phonenum, bloodtype, rhfactor, weight, hb, bloodpercent, volume}=req.body
     console.log(req.body)
-    
-    let temp=5
-    db.query('Select donor_id from donor where F_name= ? and L_name= ? and phonenum=?', [fname, lname, phonenum], (err, result)=>{
+    console.log('campid='+req.query.campid)
+    const campid=req.query.campid
+    console.log('fname='+fname+' lname= '+lname+'  phone= '+phonenum)
+    // let temp=5
+    db.query('Select donor_id from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (err, result)=>{
         if(err){
-            throw err;
+            throw err; 
         }
         else
-        {
-            console.log(result.l)
-            temp=result
+        { 
+            console.log(result[0].donor_id)
+            if(result.length==0){
+                return res.render('addbloodsample', {
+                    message: 'Donor not found'
+                })
+            }
+            else
+            {
+                db.query(
+                    'INSERT INTO blood (blood_type, Rh_factor, Weight, Hb, Blood_percentage, Volume, donor_id, campid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                    [bloodtype, rhfactor, weight, hb, bloodpercent, volume, result[0].donor_id, campid],
+                    (error, results)=>{
+                        if(error){
+                            console.log(error)
+                        }
+                        else{
+                            console.log('successfully added sample')
+                            return res.render('addbloodsample', {
+                                message: 'Succcessfully added sample'
+                            })
+                        }
+                    }
+                )
+            }
         }
     })
-    db.query( 
-        'INSERT INTO blood (blood_type, Rh_factor, Weight, Hb, Blood_percentage, Volume, donor_id) VALUES (?, ?, ?, ?, ?, ?)',
-        [ bloodtype, rhfactor, weight, hb, bloodpercent, volume, temp ],
-        (err, results) => {
-        if (err) {
-            console.log(err);
-            console.log(result.donor_id)
-            res.status(500).json({ message: 'Server error in insertion' });
-        } else {
-            res.status(200).json({ message: 'User registered' });
-            
-        }
-        }
-    );
+    
+ 
+ 
+})
 
-     
+app.get('/bloodbankuser', (req,res)=>{
+    res.render('bloodbankuser')
+})
+
+app.get('/checkrequests', (req,res)=>{
+    res.render('checkrequests')
 })
 
 app.get('/index', (req,res)=>{
