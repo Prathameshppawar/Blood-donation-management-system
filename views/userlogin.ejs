@@ -47,5 +47,20 @@
     </div>
     </form>
 </div>
+
+    <div id="conditional">
+    <% if(msg) {  %>
+        <p > <%= msg %></p>
+    <% } %>
+
+    </div>
+    <script>
+        // alert(temp);
+        setTimeout(function() {
+        document.getElementById('conditional').style.display = 'none';
+      }, 2500); 
+    </script>
+
+
 </body>
 </html>

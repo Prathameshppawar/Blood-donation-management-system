@@ -79,29 +79,35 @@ app.get('/', (req,res)=>{
     res.render('homepage')
 })
 
-app.get('/login', (req, res) =>{
-    res.render('userlogin')
+// app.get('/login', (req, res) =>{
+//     res.render('userlogin')
+// })
+
+app.get('/home', (req,res)=>{
+    res.render('homepage')
 })
 
-app.post('/login', (req,res)=>{
-    const {email, password, usertype}=req.body 
-    const obj={mailid:email, pass:password, opt: usertype}
-    console.log(obj)
-    res.render('index2', {email:email, password:password, option:usertype})
+// app.post('/login', (req,res)=>{
+//     const {email, password, usertype}=req.body 
+//     const obj={mailid:email, pass:password, opt: usertype}
+//     console.log(obj)
+//     res.render('index2', {email:email, password:password, option:usertype})
+// })
+
+
+
+app.get('/login', (req, res)=>{
+    res.render('userlogin', {
+        msg: null
+    })
 })
 
+app.post('/login', (req, res) => {  
 
-
-app.get('/register', (req, res)=>{
-    res.render('userlogin')
-})
-
-app.post('/register', (req, res) => {
-
-    console.log(req.body);
+    // console.log(req.body);
     const { email, password, usertype } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
-    console.log(hashedPassword)
+    // console.log(hashedPassword)
     
 
     if(usertype[0]=='c'){
@@ -112,36 +118,59 @@ app.post('/register', (req, res) => {
             }
             else{
                 if(results.length>0){
-                    console.log('auth', {
+                    console.log(results[0].email)
+                    console.log({
                         message:'Already existing user'
                     })
-                    return res.redirect('campuseroptions')
+
+                    db.query('Select * from camp where camp_id= ?', [results[0].campid], (err, resultss)=>{
+                        if(err){
+                            console.log(error)
+                            console.log(results[0].campid)
+                            console.log('error in finding the camp')
+                        }
+                        else
+                        {
+                            return res.render('campuser', {
+                                campid: resultss[0].camp_id,
+                                loc: resultss[0].address,
+                                pin: resultss[0].pincode
+                            })
+                        }
+                    })
+                    // return res.render('campuser', {
+                    //     campid: results[0].email,
+                    //     loc: results[0].password,
+                    //     pin: '362520'
+                    // })
                 }
                 else if(results.length==0)
                 { 
-                    console.log("user doesn't exist")
+                    // console.log("user doesn't exist")
                 
-                    db.query( 
-                        'INSERT INTO campuser (email, password ) VALUES (?, ?)',
-                        [ email, password ],
-                        (err, results) => {
-                        if (err) {
-                            console.log(err);
+                    // db.query( 
+                    //     'INSERT INTO campuser (email, password ) VALUES (?, ?)',
+                    //     [ email, password ],
+                    //     (err, results) => {
+                    //     if (err) {
+                    //         console.log(err);
                           
-                        } else {
-                            return res.redirect('/campuseroptions')
-                        }
-                        }
-                    ); 
-    
-                   
+                    //     } else {
+                    //         return res.redirect('/campuseroptions')
+                    //     }
+                    //     }
+                    // ); 
+                    // db.query('Select email from campuser')
+                    return res.render('userlogin', {
+                        msg:'Check your details, wrong details entered'
+                    })
                 } 
                 
             }
         })
-    }
+    } 
 
-    else if(usertype[0]=='b'){
+    else if(usertype[0]=='b'){ 
         db.query('Select * from bloodbankuser where email = ? and password= ?', [ email, password], (error,results)=>{
             if(error){ 
                 console.log('user not found')
@@ -156,21 +185,23 @@ app.post('/register', (req, res) => {
                 }
                 else if(results.length==0)
                 { 
-                    console.log("user doesn't exist")
+                    // console.log("user doesn't exist")
                 
-                    db.query(
-                        'INSERT INTO campuser (email, password ) VALUES (?, ?)',
-                        [ email, password ],
-                        (err, results) => {
-                        if (err) {
-                            console.log(err);
+                    // db.query(
+                    //     'INSERT INTO campuser (email, password ) VALUES (?, ?)',
+                    //     [ email, password ],
+                    //     (err, results) => {
+                    //     if (err) {
+                    //         console.log(err);
                            
-                        } else {
-                            return res.redirect('bloodbankuseroptions')
-                        }
-                        }
-                    ); 
-    
+                    //     } else {
+                    //         return res.redirect('bloodbankuseroptions')
+                    //     }
+                    //     }
+                    // ); 
+                    return res.render('userlogin', {
+                        msg:'Check your details, wrong details entered'
+                    })
                    
                 } 
                 
@@ -186,6 +217,7 @@ app.post('/register', (req, res) => {
             }
             else{
                 if(results.length>0){
+                    console.log(results)
                     console.log('auth', {
                         message:'Already existing user'
                     })
@@ -193,22 +225,24 @@ app.post('/register', (req, res) => {
                 }
                 else if(results.length==0) 
                 { 
-                    console.log("user doesn't exist")
+                    // console.log("user doesn't exist")
                 
-                    db.query(
-                        'INSERT INTO campuser (email, password ) VALUES (?, ?)',
-                        [ email, password ],
-                        (err, results) => {
-                        if (err) {
-                            console.log(err);
+                    // db.query(
+                    //     'INSERT INTO campuser (email, password ) VALUES (?, ?)',
+                    //     [ email, password ],
+                    //     (err, results) => {
+                    //     if (err) {
+                    //         console.log(err);
                             
-                        } else {
-                            return res.redirect('hospitaluseroptions')
-                        }
-                        }
-                    ); 
-    
-                   
+                    //     } else {
+                    //         return res.redirect('hospitaluseroptions')
+                    //     }
+                    //     }
+                    // ); 
+                    return res.render('userlogin', {
+                        msg:'Check your details, wrong details entered'
+                    })
+                    
                 } 
                 
             }
@@ -224,7 +258,11 @@ app.post('/register', (req, res) => {
 
 
 app.get('/campuseroptions', (req, res)=>{
-    res.render('campuser');
+    res.render('campuser', {
+        campid: null,
+        loc: null,
+        pin: null
+    });
 })
 
 // app.post('/campuseroptions', (req, res)=>{
@@ -241,49 +279,21 @@ app.get('/campuseroptions', (req, res)=>{
 
 
 app.get('/donorregister', (req,res)=>{
-    res.render('donorregister')
+    res.render('donorregister',{
+        message: null
+    })
 })
 
 app.post('/donorregister', ((req,res)=>{
     console.log(req.body)
-    res.redirect('donorregister') 
+    // res.redirect('donorregister') 
      
     const {fname, lname, pincode, phonenum, occupation, address, gender, dob}= req.body
     console.log(lname)
     
-    // const [type, setType]= useState('Already existing user')
-    // let temp=0
-
-    // if(fname)
-    // {
-    //     db.query('Select * from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (error, results)=>{
-    //         if(error)
-    //         {
-    //             console.log(error)
-    //             console.log('Errror in finding existing user')
-
-    //         }
-    //         else
-    //         {
-    //             if(results.length>0)
-    //             {
-    //                 console.log('auth', {
-    //                     message: 'Already existing user'
-    //                 })
- 
-    //                 temp=2
-    //                 return res.render('donorregister', temp)
-    //             }
-                
-    //         }
-    //     })
-    // }
 
 
-    let msg={
-        message: 'User already regsitered' 
-    }
-    db.query('Select * from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (error, results)=>{
+    db.query('Select donor_id from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (error, results)=>{
         if(error)
         {
             console.log(error)
@@ -297,15 +307,15 @@ app.post('/donorregister', ((req,res)=>{
                     message:'Already existing user'
                 })
                 return res.redirect('alreadyexistinguser')
-                // setType('Already existing user')
+                // return res.render('donorregister', {
+                //     message: 'Already existing user' 
+                // })
             }
 
             else if(results.length==0){   
-                // setType('Already existing user')
+    
                 console.log('new user') 
-                temp.push(1)
-                console.log(temp.length+' for new user')   
-                    // res.render('campuser') 
+                
                 db.query( 
                     'INSERT INTO donor (F_name, L_name, Pincode, Address, Occupation, DOB, Gender, phonenum ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                     [ fname, lname, pincode, address, occupation, dob, gender, phonenum ],
@@ -375,9 +385,9 @@ app.get('/alreadyexistinguser', (req, res)=>{
     res.render('alreadyregistered')
 })
 
-app.post('/alreadyexistinguser', (req, res)=>{
-    res.render('home')
-})
+// app.post('/alreadyexistinguser', (req, res)=>{
+//     res.render('home')
+// })
 
 app.listen(PORT, ()=>{
     console.log("server started at port "+PORT)

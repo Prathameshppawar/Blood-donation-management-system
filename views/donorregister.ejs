@@ -26,8 +26,8 @@
                 <select name="occupation" id="occ">
                     <option value="Goverment service">Government service</option>
                     <option value="Business">Business</option>
-                    <option value="job">job</option>
-                    <option value="student">student</option>
+                    <option value="job">Job</option>
+                    <option value="student">Student</option>
                 </select> 
             </div>        
         <p class="address">ADDRESS :</p>
@@ -44,12 +44,17 @@
             <input type="date" name="dob" id="blank8" value>
             <input type="submit" value="SUBMIT" id="submit">
     </form> 
-
-    
+    <div id="conditional">
+    <% if(message) {  %>
+        <p > <%= message %></p>
+    <% } %>
+    <!-- <% let temp= message  %> -->
+    </div>
     <script>
-        alert(message)
+        
+        // alert(temp);
         setTimeout(function() {
-        document.getElementById('msg').style.display = 'none';
+        document.getElementById('conditional').style.display = 'none';
       }, 2500); 
     </script>
 </body>
