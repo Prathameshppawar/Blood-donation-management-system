@@ -1,0 +1,210 @@
+.redblock {
+  position: absolute;
+  width: 1174px;
+  height: 790px;
+  left: 360px;
+  top: 0px;
+
+  background: #9e0d0d;
+  mix-blend-mode: normal;
+}
+
+.whiteline {
+  position: absolute;
+  width: 1174px;
+  height: 0px;
+  left: 356px;
+  top: 241px;
+
+  border: 3px solid #ffffff;
+}
+.redline {
+  position: absolute;
+  width: 354px;
+  height: 0px;
+  left: 0px;
+  top: 241.02px;
+
+  border: 3px solid #9e0d0d;
+}
+.blooddrop {
+  position: absolute;
+  width: 70px;
+  height: 118px;
+  left: 1403px;
+  top: 45px;
+
+  background: url(blood\ drop.png);
+  filter: brightness(2000%);
+}
+.BDMS {
+  position: absolute;
+  width: 734px;
+  height: 145px;
+  left: 400px;
+  top: 33px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 59px;
+
+  color: #ffffff;
+}
+
+.profile {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  left: 86px;
+  top: 28px;
+
+  background: url(user.png);
+  background-size: cover;
+  border: 1px solid #000000;
+
+  border-radius: 100%;
+}
+
+.text1 {
+  position: absolute;
+  width: 522px;
+  height: 86px;
+  left: 715px;
+  top: 375px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  /* font-weight: 400; */
+  font-size: 30px;
+  line-height: 18px;
+  text-align: center;
+
+  color: #000000;
+  background: #d9d9d9;
+  border-radius: 81px;
+  text-decoration: none;
+}
+
+.text2 {
+  position: absolute;
+  width: 522px;
+  height: 86px;
+  left: 715px;
+  top: 550px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  /* font-weight: 400; */
+  font-size: 30px;
+  line-height: 18px;
+  text-align: center;
+
+  color: #000000;
+  background: #d9d9d9;
+  border-radius: 81px;
+  text-decoration: none;
+}
+
+.useless {
+  position: absolute;
+  top: 500px;
+  left: 500px;
+  z-index: -1;
+}
+
+.hospital {
+  position: absolute;
+  width: 291px;
+  height: 57px;
+  left: 38px;
+  top: 284px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+
+  color: #000000;
+}
+.hospitalid {
+  position: absolute;
+  width: 291px;
+  height: 57px;
+  left: 250px;
+  top: 284px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+
+  color: #000000;
+}
+
+.add {
+  position: absolute;
+  width: 291px;
+  height: 57px;
+  left: 38px;
+  top: 320px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+
+  color: #000000;
+}
+.address {
+  position: absolute;
+  width: 300px;
+  height: 57px;
+  left: 38px;
+  top: 355px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  /* font-weight: 400; */
+  font-size: 1px;
+  line-height: 32px;
+
+  color: #000000;
+}
+
+.PIN {
+  position: absolute;
+  width: 291px;
+  height: 57px;
+  left: 38px;
+  top: 470px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+
+  color: #000000;
+}
+.pincode {
+  position: absolute;
+  width: 291px;
+  height: 57px;
+  left: 200px;
+  top: 470px;
+
+  font-family: "Graduate";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+
+  color: #000000;
+}

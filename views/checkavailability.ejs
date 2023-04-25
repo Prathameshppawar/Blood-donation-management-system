@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
+    <link rel="stylesheet" href="checkavailabilty.css">
+</head>
+<body>
+    <p class="addblood">Check availability</p>
+    <img src="blood_drop.png" alt="" class="blooddrop">
+    <div class="redblock"></div>
+    <hr class="line">
+    <form action="/checkandreqblood" method="post">
+    <p class="bloodtype">BLOODTYPE :</p>
+        <div>
+            <select name="bloodtype" id="bt">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+            </select>
+        </div>
+        <p class="rhfactor">RH FACTOR :</p>
+        <div>
+            <select name="rhfactor" id="rh">
+                <option value="+">+</option>
+                <option value="-">-</option>
+            </select>
+        </div>
+        <p class="volume">VOLUME :</p>
+        <input id  = "blank4" type = "number" name="volume"></input>
+        <p class = "mL">unit(s)</p>
+        <!-- <p class="result">yes, the blood type is available, you can request for it.</p> -->
+        <!-- <p class="result">sorry, but this blood type is not available.</p> -->
+        <%if(mesg1){%>
+        <p class="resultaff1">No, the blood type is not available.</p>
+        <%}%>
+        <%if(mesg2){%>
+        <p class="resultaff1">yes, <%=req_blood%> unit(s) are available.</p>
+        <%}%>
+        <%if(mesg3){%>
+        <p class="resultaff1">yes, blood type is available but only</p>
+        <p class="availblood"> <%=results[0].volume%></p>
+        <p class="resultaff11">unit(s) is/are available for now, you can request this much.</p>
+        <%}%>
+        <%if(mesg4){%>
+        <p class="resultaff1">Blood request sent successfully.</p>
+        <%}%>
+
+        <input type="submit" name="CHECK" value="CHECK" id="submit">
+        <input type="submit" name="GOFORAREQUEST" value="GOFORAREQUEST" id="submit2">
+    </form>
+    
+</body>
+</html>

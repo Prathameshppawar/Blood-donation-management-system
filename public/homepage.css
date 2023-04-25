@@ -17,6 +17,11 @@ body {font-family: Verdana, sans-serif; margin:0}
 .mySlides {display: none}
 img {vertical-align: middle;}
 
+body{
+    overflow-x: hidden;
+    
+}
+
 .slideshow-container {
 
     display: flex;
