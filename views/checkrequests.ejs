@@ -33,7 +33,7 @@
                     <td><%= hospitalname[i].hospname %></td> 
                     <td><%= results[i].bloodtype %></td>
                     <td><%= results[i].rhfactor %></td>
-                    <td><%= results[i].volume%></td>
+                    <td><%= results[i].units%></td>
                     <% console.log('results are'+results[i].requestid)%>
                     <td>
                         <form action="checkrequests?reqid=<%=results[i].requestid%>" method="post">
@@ -43,8 +43,13 @@
                 </tr>
             <%  } %>
         <% } else{ %>
-            <p>No pending requests</p>
+            <% if(msg){ %>
+                <p><%= msg%></p>
+            <%} else{%>
+                <p>No pending requests</p>
+            <%  } %>
         <%}%>
+        
     </table>
     <script>
         console.log('results has ' + results[i])

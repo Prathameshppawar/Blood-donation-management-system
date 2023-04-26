@@ -401,7 +401,7 @@ app.post("/reqblood", (req, res) => {
     console.log(req.body)
     console.log(req.query)
 
-    let qry = "insert into requests(hospitalid, bloodtype, rhfactor, volume) values(?,?,?,?)";
+    let qry = "insert into requests(hospitalid, bloodtype, rhfactor, units) values(?,?,?,?)";
     db.query(qry, [hospid, bloodtype, rhfactor, volume], (err, results) => {
       if (err) throw err;
       else {
@@ -532,60 +532,97 @@ app.get('/checkrequests', (req,res)=>{
     console.log( 'results is ' + result+ 'ends here')
     res.render('checkrequests', {
         results: result,
-        hospitalname:hospname
+        hospitalname:hospname,
+        msg: null
     })
 
 })
 
+
 app.post('/checkrequests', (req,res)=>{
-    // console.log('the req.body for the new post method is'+req.body[0].rhfactor)
+
     console.log('query is '+req.query.reqid)
     const requestid=req.query.reqid
     const qry='Select * from requests where requestid = ?'
-    const insertqry = "insert into reqhistory(reqid, hospitalid, bloodtype, rhfactor, volume) values(?,?,?,?, ?)"
-    const insertqryblood = "insert into bloodhistory(bloodid, bloodtype, rhfactor, weight, hb, Blood_percentage, donor_id, campid) values( ?, ?, ?, ?, ?, ?, ?, ?)"
-    var totalblood
+    const insertqry = "insert into reqhistory(reqid, hospitalid, bloodtype, rhfactor, units) values(?,?,?,?, ?)"
+    const insertqryblood = "insert into bloodhistory(bloodid, bloodtype, rhfactor, weight, hb, Blood_percentage, donor_id, campid, hospital_id) values( ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    const msg='That amount of blood not available'
     db.query(qry, [requestid], (err,result)=>{
         if(err){
             throw err;
             console.log(err)
         }
         else{
-            console.log('requested tuple is volume='+result[0].volume+'   '+ result[0].bloodtype)
-            db.query(insertqry, [result[0].requestid, result[0].hospitalid, result[0].bloodtype, result[0].rhfactor, result[0].volume],
-                (error, results)=>{
-                    if(error){
-                        console.log(error) 
+            console.log('in first query='+result[0].units)
+            db.query('Select * from blood where blood_type=? and rh_factor=?', [result[0].bloodtype, result[0].rhfactor], 
+                (errors, results)=>{
+                    if(errors){
+                        console.log(errors)
                     }
                     else{
-                        db.query('Select * from blood where blood_type=? and rh_factor=?', [result[0].bloodtype, result[0].rhfactor], 
-                        (errors, results)=>{
-                            if(errors){console.log(errors)}
-                            else{
-                                console.log('query for same bloodtype runs and gives donor to be'+results[0].donor_id)
-                                for(let i =0; i< result[0].volume && i<results.length; i++)
-                                {
-                                    console.log('querying i for i= '+i)
-                                    db.query(insertqryblood, [results[0].blood_id, results[0].blood_type, results[0].Rh_factor, results[0].Weight, results[0].Hb, results[0].Blood_percentage, results[0].donor_id, results[0].campid],
-                                        (er, re)=>{
-                                            if(er){console.log(er)}
-                                            else{
-                                                console.log('blood successsfully added')
-                                            }
-                                        })
+                        console.log('blood samples = '+results.length)
+                        console.log('blood samples corresponding='+results[0])
+                        console.log('min iterations ='+result[0].units)
+                        // console.log('query for same bloodtype runs and gives donor to be'+results[0].donor_id)
+                        if(results.length==0)
+                        {
+                            console.log('in results.length ==0\n\n')
+                            return res.render('checkrequests',{
+                                results: null,
+                                hospitalname:null,
+                                msg: 'Blood for the Selected blood type and rhfactor not availabe'
+                            })
+                        }
+                        else{
+                            
+                            for(let i =0; (i< result[0].units) && (i<results.length) ; i++)
+                            {
+                                console.log('querying i for i= '+i)
+                                db.query(insertqryblood, [results[i].blood_id, results[i].blood_type, results[i].Rh_factor, results[i].Weight, results[i].Hb, results[i].Blood_percentage, results[i].donor_id, results[i].campid, result[0].hospitalid],
+                                    (er, resu)=>{
+                                        if(er){
+                                            console.log('logging error+'+er)
+                                        }
+                                        else{
+                                            console.log('blood successsfully added for blood id='+results[i].blood_id)
+                                            // return res.redirect('checkrequests')
+                                            
+                                        }
+                                    })
 
-                                }
                             }
-                        })
-                        
-                        return res.redirect('checkrequests')
+
+                            if(results.length<=result[0].units){
+                                result[0].units=result[0].units - results.length
+                                db.query('update requests set units=? where requestid=?', [result[0].units, result[0].requestid], 
+                                (errur, ress)=>{
+                                    if(errur){
+                                        console.log(error)
+                                    }
+                                    else{
+                                        console.log('updated request units')
+                                    }
+                                })
+                            }
+
+                            db.query(insertqry, [result[0].requestid, result[0].hospitalid, result[0].bloodtype, result[0].rhfactor, result[0].units],
+                                (error, resuu)=>{
+                                    if(error){
+                                        console.log(error) 
+                                    }
+                                    else{
+                                        console.log('also inserted in request history')
+                                        return res.redirect('checkrequests')
+                                    }
+                            })
+                        }
                     }
-                })
+            })
+            
 
         }
     })
-    // res.render('checkrequests')
-}) 
+})
 
 app.get('/alreadyexistinguser', (req, res)=>{
     res.render('alreadyregistered')
@@ -595,4 +632,4 @@ app.get('/alreadyexistinguser', (req, res)=>{
 
 app.listen(PORT, ()=>{
     console.log("server started at port "+PORT)
-});
+})
