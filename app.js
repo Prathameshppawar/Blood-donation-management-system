@@ -507,20 +507,41 @@ app.post('/checkrequests', (req,res)=>{
     const requestid=req.query.reqid
     const qry='Select * from requests where requestid = ?'
     const insertqry = "insert into reqhistory(reqid, hospitalid, bloodtype, rhfactor, volume) values(?,?,?,?, ?)"
-
+    const insertqryblood = "insert into bloodhistory(bloodid, bloodtype, rhfactor, weight, hb, Blood_percentage, donor_id, campid) values( ?, ?, ?, ?, ?, ?, ?, ?)"
+    var totalblood
     db.query(qry, [requestid], (err,result)=>{
         if(err){
             throw err;
             console.log(err)
         }
         else{
-            console.log('requested tuple is '+result[0].hospitalid+'   '+ result[0].bloodtype)
+            console.log('requested tuple is volume='+result[0].volume+'   '+ result[0].bloodtype)
             db.query(insertqry, [result[0].requestid, result[0].hospitalid, result[0].bloodtype, result[0].rhfactor, result[0].volume],
                 (error, results)=>{
                     if(error){
                         console.log(error) 
                     }
                     else{
+                        db.query('Select * from blood where blood_type=? and rh_factor=?', [result[0].bloodtype, result[0].rhfactor], 
+                        (errors, results)=>{
+                            if(errors){console.log(errors)}
+                            else{
+                                console.log('query for same bloodtype runs and gives donor to be'+results[0].donor_id)
+                                for(let i =0; i< result[0].volume && i<results.length; i++)
+                                {
+                                    console.log('querying i for i= '+i)
+                                    db.query(insertqryblood, [results[0].blood_id, results[0].blood_type, results[0].Rh_factor, results[0].Weight, results[0].Hb, results[0].Blood_percentage, results[0].donor_id, results[0].campid],
+                                        (er, re)=>{
+                                            if(er){console.log(er)}
+                                            else{
+                                                console.log('blood successsfully added')
+                                            }
+                                        })
+
+                                }
+                            }
+                        })
+                        
                         return res.redirect('checkrequests')
                     }
                 })
