@@ -63,8 +63,8 @@ app.get('/home', (req,res)=>{
         }
         else
         {
-            console.log(res.length)
-            temp1=res.length
+            console.log('donors='+res.length)
+            temp1=Number(res.length)
             db.query('Select * from blood', (error, results)=>{
                 if(error)
                 {
@@ -72,14 +72,27 @@ app.get('/home', (req,res)=>{
                 }
                 else
                 {
-                    console.log(results.length)
-                    temp2=results.length
+                    console.log('curr blood '+results.length)
+                    temp2=Number(results.length)
+                    console.log('temp2 in curr blood='+temp2)
+                    db.query('select * from bloodhistory', (errors, resultss)=>{
+                        if(errors){
+                            console.log(errors)
+                        }
+                        else{
+                            console.log('hist blood '+resultss.length)
+                            console.log(typeof(resultss.lenth))
+                            temp2=Number(temp2)+Number(resultss.length)
+                            console.log('temp2 in req blood= '+temp2)
+                        }
+                    })
                      
                 }
             })
         }
     })
 
+    
 
     res.render('homepage', {
         donor: temp1,
