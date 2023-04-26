@@ -49,7 +49,13 @@ app.get('/', (req,res)=>{
     res.redirect('home')
 })
 
+app.get('/about', (req, res)=>{
+    res.render('home')
+})
 
+app.get('/donate', (req,res)=>{
+    res.render('home')
+})
 
 
 var temp1, temp2
@@ -330,10 +336,11 @@ app.post('/addbloodsample', (req, res)=>{
     // let temp=5
     db.query('Select donor_id from donor where F_name= ? and L_name=? and phonenum=?', [fname, lname, phonenum], (err, result)=>{
         if(err){
-            throw err; 
+            throw err;
         }
         else
         { 
+            console.log(result)
             console.log(result[0].donor_id)
             if(result.length==0){
                 return res.render('addbloodsample', {
@@ -343,8 +350,8 @@ app.post('/addbloodsample', (req, res)=>{
             else
             {
                 db.query(
-                    'INSERT INTO blood (blood_type, Rh_factor, Weight, Hb, Blood_percentage, Volume, donor_id, campid) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                    [bloodtype, rhfactor, weight, hb, bloodpercent, volume, result[0].donor_id, campid],
+                    'INSERT INTO blood (blood_type, Rh_factor, Weight, Hb, Blood_percentage, donor_id, campid) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                    [bloodtype, rhfactor, weight, hb, bloodpercent, result[0].donor_id, campid],
                     (error, results)=>{
                         if(error){
                             console.log(error)
@@ -416,49 +423,65 @@ app.post("/checkandreqblood", (req, res) => {
     const checkbloodavail = req.body.CHECK;
     const reqbloodavail = req.body.GOFORAREQUEST;
     let req_blood = req.body.volume;
-  
     if (checkbloodavail) {
       let qry =
-        "select sum(Volume) as avail from blood where blood_type=? and Rh_factor=?";
+        "select count(Rh_factor) as avail from blood where blood_type=? and Rh_factor=?";
       db.query(qry, [bloodtype, rhfactor], (err, results) => {
         if (err) throw err;
         else {
-            console.log(results[0])
-            console.log(req_blood)
+            console.log('first element= '+results[0].avail)
+            console.log('total rsult length='+results.length)
+            // console.log(req_blood)
             // console.log(req)
-            if(results[0].avail<req_blood){
-                console.log('in avail=null')
-                res.render("checkavailability", {
-                    req_blood: req_blood,
-                    results,
-                    mesg1: false,
-                    mesg2: false,
-                    mesg3: true,
-                    mesg4: false,
-                })
-                
-            }
-            else if(results[0].avail>=req_blood)
-            {
-                console.log('in avail blood is excess')
-                res.render("checkavailability", {
-                    req_blood: req_blood,
-                    results,
-                    mesg1: false,
-                    mesg2: true,
-                    mesg3: false,
-                    mesg4: false,
-                })
-            }
-            else {
-                console.log('in avail blood is less')
+            if(results[0].avail==0){
+                console.log('no blood is available')
                 res.render("checkavailability", {
                     req_blood: req_blood,
                     mesg1: true,
                     mesg2: false,
                     mesg3: false,
                     mesg4: false,
+                    hospid: req.query.hospitalid
                 })
+            }
+            else{
+                if(results[0].avail<req_blood){
+                    console.log('in avail=null')
+                    res.render("checkavailability", {
+                        req_blood: req_blood,
+                        results,
+                        mesg1: false,
+                        mesg2: false,
+                        mesg3: true,
+                        mesg4: false,
+                        hospid: req.query.hospitalid
+                    })
+                    
+                }
+                else if(results[0].avail>=req_blood)
+                {
+                    console.log('in avail blood is excess')
+                    res.render("checkavailability", {
+                        req_blood: req_blood,
+                        results,
+                        mesg1: false,
+                        mesg2: true,
+                        mesg3: false,
+                        mesg4: false,
+                        hospid: req.query.hospitalid
+                    })
+                }
+                else {
+                    console.log('in avail blood is less')
+                    res.render("checkavailability", {
+                        req_blood: req_blood,
+                        mesg1: true,
+                        mesg2: false,
+                        mesg3: false,
+                        mesg4: false,
+                        hospid: req.query.hospitalid
+                    })
+                }
             }
         }
       })
