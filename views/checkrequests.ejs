@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Requests</title>
     <link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
     <link rel="stylesheet" href="checkrequests.css">
 </head>
 <body>
     <p class="pendingreq">PENDING REQUESTS</p>
-    <img src="blood_drop.png" alt="" class="blooddrop">
+    <img src="blood_drop.png" alt="blood drop" class="blooddrop">
     <div class="redblock"></div>
+    
+        <% if(results){ %>
     <p class="requests">REQUESTS :</p>
     <table class="requesttable">
         <thead>
@@ -23,19 +25,30 @@
             <th>Unit/s</th>
             <th>Approve</th>
         </tr>
-        </thead>
-        <tr>
-            <td>1</td>
-            <td>sms hospital</td> 
-            <td>AB</td>
-            <td>+</td>
-            <td>1</td>
-            <td>
-            <input type="button" value="" name ="submit" class = "submit">
-            <!-- <input type="image" src="checked.png" alt=""> -->
-            </td>
-        </tr>
+        </thead> 
+            <!-- <p>something<%= results[0].hospitalid%> laso length = <%= results.length%></p> -->
+            <% for(let i=0;i<results.length;i++){ %>
+                <tr>
+                    <td><%= results[i].hospitalid %></td>
+                    <td><%= hospitalname[i].hospname %></td> 
+                    <td><%= results[i].bloodtype %></td>
+                    <td><%= results[i].rhfactor %></td>
+                    <td><%= results[i].volume%></td>
+                    <% console.log('results are'+results[i].requestid)%>
+                    <td>
+                        <form action="checkrequests?reqid=<%=results[i].requestid%>" method="post">
+                        <input type="submit"  value   name ="submit" class = "submit">
+                        </form>
+                    </td>
+                </tr>
+            <%  } %>
+        <% } else{ %>
+            <p>No pending requests</p>
+        <%}%>
     </table>
+    <script>
+        console.log('results has ' + results[i])
+    </script>
     
 </body>
 </html>

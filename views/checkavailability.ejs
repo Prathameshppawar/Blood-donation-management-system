@@ -31,7 +31,7 @@
             </select>
         </div>
         <p class="volume">VOLUME :</p>
-        <input id  = "blank4" type = "number" name="volume"></input>
+        <input id  = "blank4" type = "number" name="volume" value=<%= req_blood%>></input>
         <p class = "mL">unit(s)</p>
         <!-- <p class="result">yes, the blood type is available, you can request for it.</p> -->
         <!-- <p class="result">sorry, but this blood type is not available.</p> -->
@@ -39,11 +39,11 @@
         <p class="resultaff1">No, the blood type is not available.</p>
         <%}%>
         <%if(mesg2){%>
-        <p class="resultaff1">yes, <%=req_blood%> unit(s) are available.</p>
+        <p class="resultaff1">Yes, <%=req_blood%> unit(s) are available.</p>
         <%}%>
         <%if(mesg3){%>
-        <p class="resultaff1">yes, blood type is available but only</p>
-        <p class="availblood"> <%=results[0].volume%></p>
+        <p class="resultaff1">Yes, blood type is available but only</p>
+        <p class="availblood"> <%=results[0].avail%></p>
         <p class="resultaff11">unit(s) is/are available for now, you can request this much.</p>
         <%}%>
         <%if(mesg4){%>
@@ -51,7 +51,8 @@
         <%}%>
 
         <input type="submit" name="CHECK" value="CHECK" id="submit">
-        <input type="submit" name="GOFORAREQUEST" value="GOFORAREQUEST" id="submit2">
+        <!-- <input type="submit" name="GOFORAREQUEST" value="Go for a Request" id="submit2"> -->
+        <a href="reqblood?hospitalid=<%= hospid %>" id="submit2" style="text-decoration: none;">Go for a request</a>
     </form>
     
 </body>

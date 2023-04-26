@@ -12,7 +12,9 @@ const dotenv = require("dotenv").config();
 
 var path= require("path")
 
-const bodyParser= require('body-parser')
+const bodyParser= require('body-parser');
+const { ifError } = require("assert");
+const { error } = require("console");
 
 // import React, {useState} from 'react' 
 
@@ -44,7 +46,7 @@ db.connect((err)=> {
 })
  
 app.get('/', (req,res)=>{
-    res.render('homepage')
+    res.redirect('home')
 })
 
 
@@ -235,8 +237,9 @@ app.get('/campuseroptions', (req, res)=>{
 
 
 app.get('/donorregister', (req,res)=>{
+    
     res.render('donorregister',{
-        message: null
+       message: null
     })
 })
 
@@ -282,6 +285,9 @@ app.post('/donorregister', ((req,res)=>{
                          
                     } else { 
                         console.log('user registered')
+                        res.render('donorregister', {
+                            message:'New donor registered'
+                        })
                     }
                     }
                 ) 
@@ -351,24 +357,32 @@ app.get("/hospitaluser", (req, res) => {
 })
 
 app.get("/checkavailability", (req, res) => {
+    console.log(req.query.hospitalid)
+
     res.render("checkavailability", {
       req_blood: null,
       mesg1: false,
       mesg2: false,
       mesg3: false,
       mesg4: false,
+      hospid: req.query.hospitalid
     });
   })
 
 
-app.get("/requestblood", (req, res) => {
-    res.render("requestblood", { mesg1: false });
+app.get("/reqblood", (req, res) => {
+    res.render("requestblood", { mesg1: false, req_blood: null });
 });
 
 app.post("/reqblood", (req, res) => {
     const { bloodtype, rhfactor, volume } = req.body;
-    let qry = "insert into request values(?,?,?)";
-    db.query(qry, [bloodtype, rhfactor, volume], (err, results) => {
+    const hospid= req.query.hospitalid
+    console.log(hospid)
+    console.log(req.body)
+    console.log(req.query)
+
+    let qry = "insert into requests(hospitalid, bloodtype, rhfactor, volume) values(?,?,?,?)";
+    db.query(qry, [hospid, bloodtype, rhfactor, volume], (err, results) => {
       if (err) throw err;
       else {
         if (results.affectedRows > 0) {
@@ -382,6 +396,62 @@ app.post("/reqblood", (req, res) => {
     });
 });
 
+
+app.post("/checkandreqblood", (req, res) => {
+    
+    const { bloodtype, rhfactor, volume } = req.body;
+    const checkbloodavail = req.body.CHECK;
+    const reqbloodavail = req.body.GOFORAREQUEST;
+    let req_blood = req.body.volume;
+  
+    if (checkbloodavail) {
+      let qry =
+        "select sum(Volume) as avail from blood where blood_type=? and Rh_factor=?";
+      db.query(qry, [bloodtype, rhfactor], (err, results) => {
+        if (err) throw err;
+        else {
+            console.log(results[0])
+            console.log(req_blood)
+            // console.log(req)
+            if(results[0].avail<req_blood){
+                console.log('in avail=null')
+                res.render("checkavailability", {
+                    req_blood: req_blood,
+                    results,
+                    mesg1: false,
+                    mesg2: false,
+                    mesg3: true,
+                    mesg4: false,
+                })
+                
+            }
+            else if(results[0].avail>=req_blood)
+            {
+                console.log('in avail blood is excess')
+                res.render("checkavailability", {
+                    req_blood: req_blood,
+                    results,
+                    mesg1: false,
+                    mesg2: true,
+                    mesg3: false,
+                    mesg4: false,
+                })
+            }
+            else {
+                console.log('in avail blood is less')
+                res.render("checkavailability", {
+                    req_blood: req_blood,
+                    mesg1: true,
+                    mesg2: false,
+                    mesg3: false,
+                    mesg4: false,
+                })
+            }
+        }
+      })
+    } 
+});
+
 app.get("/hospitaluser", (req, res) => {
     res.render("hospitaluser");
   })
@@ -390,11 +460,75 @@ app.get('/bloodbankuser', (req,res)=>{
     res.render('bloodbankuser')
 })
 
+var result
+let hospname
+
 app.get('/checkrequests', (req,res)=>{
-    res.render('checkrequests')
+    
+    let resarray=[]
+    const qry='Select hospital.hospitalname from requests inner join hospital on requests.hospitalid=hospital.hospital_id'
+    db.query('Select * from requests', (err,res)=>{
+        if(err){
+            console.log(err)
+        }
+        else{
+            console.log(res)
+            console.log('length ='+res.length)
+            result=res
+            console.log(res[0].hospitalid)
+            console.log('result= '+result)
+            
+            db.query('SELECT hospital.hospitalname as hospname from hospital inner join requests where requests.hospitalid=hospital.hospital_id',
+            (error, results)=>{
+                if(error){
+                    console.log(error)
+                }
+                else{
+                    console.log('results obtained : '+results[0].hospname)
+                    hospname=results
+                }
+            })
+            
+        }
+    })
+
+    // db.query('')
+    console.log( 'results is ' + result+ 'ends here')
+    res.render('checkrequests', {
+        results: result,
+        hospitalname:hospname
+    })
+
 })
 
+app.post('/checkrequests', (req,res)=>{
+    // console.log('the req.body for the new post method is'+req.body[0].rhfactor)
+    console.log('query is '+req.query.reqid)
+    const requestid=req.query.reqid
+    const qry='Select * from requests where requestid = ?'
+    const insertqry = "insert into reqhistory(reqid, hospitalid, bloodtype, rhfactor, volume) values(?,?,?,?, ?)"
 
+    db.query(qry, [requestid], (err,result)=>{
+        if(err){
+            throw err;
+            console.log(err)
+        }
+        else{
+            console.log('requested tuple is '+result[0].hospitalid+'   '+ result[0].bloodtype)
+            db.query(insertqry, [result[0].requestid, result[0].hospitalid, result[0].bloodtype, result[0].rhfactor, result[0].volume],
+                (error, results)=>{
+                    if(error){
+                        console.log(error) 
+                    }
+                    else{
+                        return res.redirect('checkrequests')
+                    }
+                })
+
+        }
+    })
+    // res.render('checkrequests')
+}) 
 
 app.get('/alreadyexistinguser', (req, res)=>{
     res.render('alreadyregistered')

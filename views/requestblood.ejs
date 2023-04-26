@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Request blood</title>
     <link href='https://fonts.googleapis.com/css?family=Graduate' rel='stylesheet'>
     <link rel="stylesheet" href="requestblood.css">
 </head>
@@ -13,7 +13,7 @@
     <img src="blood_drop.png" alt="" class="blooddrop">
     <div class="redblock"></div>
     <hr class="line">
-    <form action="/reqblood" method="post">
+    <form action="" method="post">
 
         <p class="bloodtype">BLOODTYPE :</p>
         <div>
@@ -32,10 +32,10 @@
         </select>
     </div>
     <p class="volume">VOLUME :</p>
-    <input name="volume" value="volume" id  = "blank4" type = "number"></input>
-    <p class = "mL">unit(s)</p>
+    <input name="volume" value="volume" id  = "blank4" type = "number" required></input>
+    <p class = "mL">Unit(s)</p>
     <%if(mesg1){%>
-    <p class="result">your request has been posted successfully, you can collect the blood from the blood bank.</p>
+    <p class="result">Your request has been posted successfully.</p>
     <%}%>
     <input type="submit" value="REQUEST" id="submit">
 </form>

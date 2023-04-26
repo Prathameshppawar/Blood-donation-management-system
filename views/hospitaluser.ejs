@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Hospital user</title>
     <link rel="stylesheet" href="hosptitaluser.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Graduate"
@@ -19,12 +19,12 @@
     <p class="BDMS">BLOOD DONATION MANAGEMENT SYSTEM</p>
     <div class="profile"></div>
       <input name="userregister" value="1" class="useless" />
-      <a href="/checkavailability" class="text1" method="get">
+      <a href="/checkavailability?hospitalid=<%= results[0].hospital_id %>" class="text1" method="get">
         <h3>Check avaiability</h3>
       </a>
 
       <input name="newbloodsample" value="2" class="useless" />
-      <a href="/requestblood" class="text2" method="get">
+      <a href="/reqblood?hospitalid=<%= results[0].hospital_id %>" class="text2" method="get">
         <h3>Request blood sample</h3>
       </a>
     
